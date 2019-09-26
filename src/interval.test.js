@@ -15,3 +15,14 @@ describe('overlaps', function() {
 
 });
 
+describe('includes', function() {
+	var int1 = new Interval(0,4);
+	var int2 = new Interval(1,2);
+	var int3 = new Interval(4,5);
+	test('Test includes true', () => {
+		expect(int1.includes(int2)).toBe(true);
+	});
+	test('Test includes false', () => {
+		expect(int1.includes(int3)).toBe(false);
+	});
+});
