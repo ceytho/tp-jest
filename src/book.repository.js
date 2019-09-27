@@ -22,7 +22,12 @@ class BookRepository {
      * Somme du prix de tous les livre
      */
     getTotalPrice() {
-
+	var prices = this.db.get('books').map('price').value();
+	var totalPrice = 0;
+	for(var i = 0; i < prices.length; i++) {
+		totalPrice += prices[i];
+	}
+	return totalPrice;
     }
 
 
