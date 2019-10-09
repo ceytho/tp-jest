@@ -2,11 +2,15 @@
   "books": [
     {
       "id": 1,
-      "name": "Unit test"
+      "name": "Unit test",
+      "price": 20,
+      "added_at" : "2019-10-02"
     },
     {
       "id": 2,
-      "name": "David nul"
+      "name": "David nul",
+      "price": 10,
+      "added_at" : "2019-10-07"
     }
   ]
 }
