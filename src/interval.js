@@ -89,7 +89,26 @@ class Interval {
      * @returns {Interval|null}
      */
     intersection(interval) {
+	var res = [];
 
+        if (this.overlaps(interval)) {
+            var intersectBeginning = 0;
+            var intersectEnd = 0;
+
+            if (interval.start <= this.start)
+                intersectBeginning = this.start
+            else
+                intersectBeginning = interval.start
+
+            if (interval.end >= this.end)
+                intersectEnd = this.end
+            else
+                intersectEnd = interval.end
+
+            res.push(new Interval(intersectBeginning, intersectEnd));
+        }
+
+        return res;
     };
 
     /**
@@ -109,7 +128,32 @@ class Interval {
      * @returns {Interval[]}
      */
     exclusion(interval) {
+        var intersect = this.intersection(interval);
+	var res;
 
+        if (intersect.length == 0)
+            res = [this, interval];
+        else {
+            if (this.start == interval.start) {
+                if (this.end > interval.end) {
+                    res = [new Interval(intersect[0].end, this.end)];
+                } else {
+                    res = [new Interval(intersect[0].end, interval.end)];
+                }
+            } else if (this.end == interval.end) {
+                if (this.start > interval.start) {
+                    res = [new Interval(interval.start, intersect[0].start)];
+                } else {
+                    res = [new Interval(this.start, intersect[0].start)];
+                }
+            } else if (this.start <= interval.start) {
+                res = [new Interval(this.start, intersect[0].start), new Interval(intersect[0].end, interval.end)];
+            } else  {
+                res = [new Interval(interval.start, intersect[0].start), new Interval(intersect[0].end, this.end)];
+            }
+        }
+
+        return res;
     };
 }
 
